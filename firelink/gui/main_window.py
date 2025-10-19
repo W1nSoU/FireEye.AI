@@ -53,14 +53,27 @@ class MainWindow(QWidget):
         for key, label in self.telemetry_labels.items():
             value = telemetry.get(key)
             if value is not None:
-                label.setText(f"{key.capitalize()}: {value:.6f}")
+                # Форматуємо координати з більшою точністю
+                if key in ['lat', 'lon']:
+                    label.setText(f"{key.capitalize()}: {value:.7f}")
+                else:
+                    label.setText(f"{key.capitalize()}: {value:.2f}")
 
-    def update_connection_status(self, is_connected):
+    def update_connection_status(self, is_connected, is_simulation=False):
         """Оновлює статус з'єднання."""
-        status = "Connected" if is_connected else "Disconnected"
-        color = "green" if is_connected else "red"
+        if is_connected:
+            if is_simulation:
+                status = "Connected (Simulation)"
+                color = "blue"
+            else:
+                status = "Connected"
+                color = "green"
+        else:
+            status = "Disconnected"
+            color = "red"
+
         self.connection_status_label.setText(f"Connection Status: {status}")
-        self.connection_status_label.setStyleSheet(f"color: {color};")
+        self.connection_status_label.setStyleSheet(f"color: {color}; font-weight: bold;")
 
     def log_message(self, message):
         """Додає повідомлення до логу GUI."""
