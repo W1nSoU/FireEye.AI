@@ -1,16 +1,31 @@
-# Ігноруємо кеш Python
+# Ігноруємо специфічні для проєкту файли
+firelink/logs/*.json
+firelink/logs/*.csv
+*.log
+
+# Ігноруємо кеш Python та скомпільовані файли
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.$py.class
 
-# Ігноруємо файли конфігурації середовища
+# Ігноруємо віртуальні середовища
 .env
 .venv
 venv/
 env/
+ENV/
 
-# Ігноруємо файли логів та артефакти
-firelink/logs/*.json
-firelink/logs/*.csv
-gui_structure.txt
+# Ігноруємо файли IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ігноруємо специфічні для ОС файли
+.DS_Store
+Thumbs.db
+
+# Ігноруємо тимчасові файли розробки
+jules-scratch/

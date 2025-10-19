@@ -1,0 +1,26 @@
+{"timestamp": "2025-10-19T15:28:32.428499", "event_type": "fire_simulation", "data": {"source": "gui"}}
+{"timestamp": "2025-10-19T15:28:34.445568", "event_type": "fire_coords_sent", "data": {"lat": 50.45017000000002, "lon": 30.523469999999996, "alt": 145.6422887755224, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:05:03.724523", "event_type": "fire_simulation", "data": {"source": "gui"}}
+{"timestamp": "2025-10-19T16:05:04.129715", "event_type": "fire_simulation", "data": {"source": "gui"}}
+{"timestamp": "2025-10-19T16:05:05.733033", "event_type": "fire_coords_sent", "data": {"lat": 50.450120000000005, "lon": 30.523419999999998, "alt": 159.9178699622357, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:05:05.733184", "event_type": "fire_coords_sent", "data": {"lat": 50.45013000000001, "lon": 30.523429999999998, "alt": 154.2365487625911, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:05:05.733279", "event_type": "fire_coords_sent", "data": {"lat": 50.45014000000001, "lon": 30.523439999999997, "alt": 144.66140188527925, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:05:05.734689", "event_type": "fire_coords_sent", "data": {"lat": 50.45014000000001, "lon": 30.523439999999997, "alt": 144.66140188527925, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:05:06.132583", "event_type": "fire_coords_sent", "data": {"lat": 50.450150000000015, "lon": 30.523449999999997, "alt": 140.0001612393623, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:35:37.980664", "event_type": "fire_simulation", "data": {"source": "gui"}}
+{"timestamp": "2025-10-19T16:35:39.988311", "event_type": "fire_coords_sent", "data": {"lat": 50.45027000000005, "lon": 30.523569999999992, "alt": 159.7791467706673, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:35:39.989904", "event_type": "fire_coords_sent", "data": {"lat": 50.45029000000006, "lon": 30.52358999999999, "alt": 147.7375524684891, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:35:43.622183", "event_type": "fire_coords_sent", "data": {"lat": 50.450310000000066, "lon": 30.52360999999999, "alt": 142.15189902134506, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:39:04.244304", "event_type": "fire_simulation", "data": {"source": "gui"}}
+{"timestamp": "2025-10-19T16:39:06.251208", "event_type": "fire_coords_sent", "data": {"lat": 50.45022000000004, "lon": 30.523519999999994, "alt": 152.72264010473586, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:39:06.251365", "event_type": "fire_coords_sent", "data": {"lat": 50.45024000000004, "lon": 30.523539999999993, "alt": 157.55076781459346, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:47:26.032045", "event_type": "fire_simulation", "data": {"source": "gui"}}
+{"timestamp": "2025-10-19T16:47:26.870002", "event_type": "fire_coords_sent", "data": {"lat": 50.450120000000005, "lon": 30.523419999999998, "alt": 140.26700722402714, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:47:26.870110", "event_type": "fire_coords_sent", "data": {"lat": 50.45014000000001, "lon": 30.523439999999997, "alt": 152.06149153303363, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T16:47:29.700547", "event_type": "fire_coords_sent", "data": {"lat": 50.450150000000015, "lon": 30.523449999999997, "alt": 159.36554058370115, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T17:13:26.851680", "event_type": "fire_simulation", "data": {"source": "gui"}}
+{"timestamp": "2025-10-19T17:13:28.862640", "event_type": "fire_coords_sent", "data": {"lat": 50.45115000000033, "lon": 30.52444999999996, "alt": 153.402013787898, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T17:13:28.862744", "event_type": "fire_coords_sent", "data": {"lat": 50.451160000000336, "lon": 30.52445999999996, "alt": 143.88537203634294, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T17:28:19.651743", "event_type": "fire_simulation", "data": {"source": "gui"}}
+{"timestamp": "2025-10-19T17:28:21.658542", "event_type": "fire_coords_sent", "data": {"lat": 50.45017000000002, "lon": 30.523469999999996, "alt": 154.78980227080206, "confidence": 0.7, "status": "acknowledged"}}
+{"timestamp": "2025-10-19T17:28:21.658714", "event_type": "fire_coords_sent", "data": {"lat": 50.45019000000003, "lon": 30.523489999999995, "alt": 140.01798974826517, "confidence": 0.7, "status": "acknowledged"}}

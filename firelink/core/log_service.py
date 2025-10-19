@@ -11,11 +11,11 @@ class LogService:
         self.log_dir = Path(config.get('log_dir', '/home/jetson/firelink/logs'))
         self.log_dir.mkdir(parents=True, exist_ok=True)
 
-        # Налаштування логгера телеметрії (CSV)
+        #  логгер телеметрії (CSV)
         self.telemetry_log_path = self.log_dir / "telemetry.csv"
         self._setup_telemetry_logger()
 
-        # Налаштування логгера подій (JSON)
+        # логгер подій (JSON)
         self.event_log_path = self.log_dir / "events.json"
         self.event_logger = self._setup_event_logger()
 
@@ -67,4 +67,4 @@ class LogService:
         """Закриває файли логів."""
         if hasattr(self, 'telemetry_file') and not self.telemetry_file.closed:
             self.telemetry_file.close()
-        # Обробники логгера подій закриваються автоматично
+        #  логгери подій закриваються автоматично

@@ -1,0 +1,4 @@
+PyQt5
+PyYAML
+pymavlink
+opencv-python-headless

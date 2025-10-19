@@ -7,7 +7,7 @@ sys:
   operator_sysid: 1
   operator_compid: 1
 debug: true
-log_dir: firelink/logs  # Змінено на відносний шлях
+log_dir: firelink/logs  
 fire_confidence_threshold: 0.7
 retry_count: 3
 retry_backoff: [3,6,12]  # seconds
