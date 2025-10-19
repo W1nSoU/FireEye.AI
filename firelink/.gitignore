@@ -1,0 +1,16 @@
+# Ігноруємо кеш Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ігноруємо файли конфігурації середовища
+.env
+.venv
+venv/
+env/
+
+# Ігноруємо файли логів та артефакти
+firelink/logs/*.json
+firelink/logs/*.csv
+gui_structure.txt
