@@ -21,6 +21,7 @@ class MavlinkService:
         }
         self.thread = threading.Thread(target=self._run, daemon=True)
         self.ack_received = threading.Event()
+        self.ack_simulation_timer = None
 
     def connect(self):
         """Встановлює з'єднання з Pixhawk або запускає симуляцію."""
@@ -71,9 +72,16 @@ class MavlinkService:
             self.telemetry['pitch'] = math.degrees(msg.pitch)
             self.telemetry['roll'] = math.degrees(msg.roll)
         elif msg_type == 'STATUSTEXT':
-            if "FIRE_RECEIVED" in msg.text:
+            # В реальному коді тут може бути .decode() для text
+            text_content = msg.text
+            if isinstance(text_content, bytes):
+                text_content = text_content.decode('utf-8', errors='ignore')
+
+            if "FIRE_RECEIVED" in text_content:
                 print("ACK received from operator!")
                 self.ack_received.set()
+                if self.ack_simulation_timer:
+                    self.ack_simulation_timer.cancel()
 
     def _simulate_telemetry(self):
         self.telemetry['lat'] += 0.00001
@@ -93,18 +101,23 @@ class MavlinkService:
         }
         text = json.dumps(payload)
 
-        retry_count = config['retry_count']
-        backoff_intervals = config['retry_backoff']
+        retry_count = config.get('retry_count', 3)
+        backoff_intervals = config.get('retry_backoff', [3, 6, 12])
 
         for i in range(retry_count):
             print(f"Sending fire coordinates (attempt {i+1}/{retry_count}): {text}")
             if not self.simulation:
                 self.conn.mav.statustext_send(mavutil.mavlink.MAV_SEVERITY_WARNING, text.encode('utf-8'))
             else:
-                print("STATUSTEXT not sent in simulation mode.")
+                # Симулюємо отримання ACK через 2 секунди в режимі debug
+                self.ack_simulation_timer = threading.Timer(2.0, self._simulate_ack)
+                self.ack_simulation_timer.start()
 
             self.ack_received.clear()
             ack_was_set = self.ack_received.wait(timeout=backoff_intervals[i])
+
+            if self.ack_simulation_timer:
+                self.ack_simulation_timer.cancel()
 
             if ack_was_set:
                 print("Successfully sent fire coordinates and received ACK.")
@@ -115,10 +128,19 @@ class MavlinkService:
         print("Failed to send fire coordinates after multiple retries.")
         return False
 
+    def _simulate_ack(self):
+        """Симулює отримання ACK."""
+        print("Simulating ACK reception...")
+        # Створюємо фейкове повідомлення STATUSTEXT і передаємо його в обробник
+        fake_msg = mavutil.mavlink.MAVLink_statustext_message(mavutil.mavlink.MAV_SEVERITY_INFO, b'FIRE_RECEIVED')
+        self._handle_message(fake_msg)
+
     def close(self):
         self.is_connected = False
         if self.thread.is_alive():
             self.thread.join()
+        if self.ack_simulation_timer:
+            self.ack_simulation_timer.cancel()
         if self.conn:
             self.conn.close()
         print("Mavlink connection closed.")
