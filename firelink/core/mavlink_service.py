@@ -72,7 +72,6 @@ class MavlinkService:
             self.telemetry['pitch'] = math.degrees(msg.pitch)
             self.telemetry['roll'] = math.degrees(msg.roll)
         elif msg_type == 'STATUSTEXT':
-            # В реальному коді тут може бути .decode() для text
             text_content = msg.text
             if isinstance(text_content, bytes):
                 text_content = text_content.decode('utf-8', errors='ignore')
@@ -97,7 +96,7 @@ class MavlinkService:
         """Формує та відправляє координати пожежі з логікою повторних спроб."""
         payload = {
             "type": "fire_coords", "lat": lat, "lon": lon, "alt": alt,
-            "confidence": confidence, "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+            "confidence": confidence, "timestamp": time.strftime("%Y-%-m-%dT%H:%M:%SZ", time.gmtime())
         }
         text = json.dumps(payload)
 
@@ -106,24 +105,25 @@ class MavlinkService:
 
         for i in range(retry_count):
             print(f"Sending fire coordinates (attempt {i+1}/{retry_count}): {text}")
+
             if not self.simulation:
                 self.conn.mav.statustext_send(mavutil.mavlink.MAV_SEVERITY_WARNING, text.encode('utf-8'))
             else:
-                # Симулюємо отримання ACK через 2 секунди в режимі debug
+                # В режимі симуляції імітуємо отримання ACK
                 self.ack_simulation_timer = threading.Timer(2.0, self._simulate_ack)
                 self.ack_simulation_timer.start()
 
             self.ack_received.clear()
             ack_was_set = self.ack_received.wait(timeout=backoff_intervals[i])
 
-            if self.ack_simulation_timer:
+            if self.ack_simulation_timer and self.ack_simulation_timer.is_alive():
                 self.ack_simulation_timer.cancel()
 
             if ack_was_set:
                 print("Successfully sent fire coordinates and received ACK.")
                 return True
             else:
-                print(f"No ACK received. Retrying after {backoff_intervals[i]} seconds...")
+                print(f"No ACK received within {backoff_intervals[i]}s timeout. Retrying...")
 
         print("Failed to send fire coordinates after multiple retries.")
         return False
@@ -131,7 +131,6 @@ class MavlinkService:
     def _simulate_ack(self):
         """Симулює отримання ACK."""
         print("Simulating ACK reception...")
-        # Створюємо фейкове повідомлення STATUSTEXT і передаємо його в обробник
         fake_msg = mavutil.mavlink.MAVLink_statustext_message(mavutil.mavlink.MAV_SEVERITY_INFO, b'FIRE_RECEIVED')
         self._handle_message(fake_msg)
 
