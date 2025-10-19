@@ -11,12 +11,12 @@ class FirelinkApp:
     def __init__(self):
         self.app = QApplication(sys.argv)
         self.window = MainWindow()
-        self.mav_service = MavlinkService(simulation=config.get('debug', True))
+        self.is_simulation = config.get('debug', True)
+        self.mav_service = MavlinkService(simulation=self.is_simulation)
         self.log_service = LogService()
 
         self._connect_signals()
 
-        # Таймер для оновлення телеметрії
         self.telemetry_timer = QTimer()
         self.telemetry_timer.timeout.connect(self._update_telemetry)
 
@@ -29,8 +29,7 @@ class FirelinkApp:
         """Оновлює дані телеметрії в GUI та логує їх."""
         telemetry = self.mav_service.get_telemetry()
         self.window.update_telemetry(telemetry)
-        # Не логуємо симульовану телеметрію
-        if not self.mav_service.simulation:
+        if not self.is_simulation:
             self.log_service.log_telemetry(telemetry)
 
     def _simulate_fire(self):
@@ -75,7 +74,7 @@ class FirelinkApp:
     def run(self):
         """Запускає додаток."""
         self.mav_service.connect()
-        self.window.update_connection_status(self.mav_service.is_connected)
+        self.window.update_connection_status(self.mav_service.is_connected, self.is_simulation)
 
         if self.mav_service.is_connected:
             self.telemetry_timer.start(1000)
